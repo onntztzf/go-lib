@@ -8,7 +8,30 @@
 
 package box_lib
 
-import "strconv"
+import (
+	"regexp"
+	"strconv"
+	"strings"
+)
+
+func FirstLower(s string) string {
+	if s == "" {
+		return ""
+	}
+	return strings.ToLower(s[:1]) + s[1:]
+}
+
+func FirstUpper(s string) string {
+	if s == "" {
+		return ""
+	}
+	return strings.ToUpper(s[:1]) + s[1:]
+}
+
+func Match(pattern string, s string) (bool, error)  {
+	match, err := regexp.MatchString(pattern, s)
+	return match, err
+}
 
 //--- Parse ---
 
