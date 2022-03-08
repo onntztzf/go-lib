@@ -6,7 +6,7 @@
  * @date
  */
 
-package box_lib
+package string
 
 import (
 	"regexp"
