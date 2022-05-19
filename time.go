@@ -6,7 +6,7 @@
  * @date
  */
 
-package time
+package box_lib
 
 import "time"
 

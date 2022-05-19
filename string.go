@@ -6,7 +6,7 @@
  * @date
  */
 
-package string
+package box_lib
 
 import (
 	"regexp"
@@ -28,7 +28,7 @@ func FirstUpper(s string) string {
 	return strings.ToUpper(s[:1]) + s[1:]
 }
 
-func Match(pattern string, s string) (bool, error)  {
+func Match(pattern string, s string) (bool, error) {
 	match, err := regexp.MatchString(pattern, s)
 	return match, err
 }

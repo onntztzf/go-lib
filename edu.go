@@ -6,7 +6,7 @@
  * @date
  */
 
-package edu
+package box_lib
 
 import (
 	"crypto/md5"

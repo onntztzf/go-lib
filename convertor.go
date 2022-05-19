@@ -1,4 +1,4 @@
-package converter
+package box_lib
 
 import (
 	"bytes"

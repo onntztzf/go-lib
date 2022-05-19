@@ -6,7 +6,7 @@
  * @date
  */
 
-package slice
+package box_lib
 
 import (
 	"fmt"

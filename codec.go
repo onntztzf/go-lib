@@ -6,7 +6,7 @@
  * @date
  */
 
-package codec
+package box_lib
 
 import (
 	"encoding/base64"
