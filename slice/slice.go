@@ -77,12 +77,49 @@ func Int64Slice(slice interface{}) []int64 {
 	return out
 }
 
-func UniqueInt64Slice(slice []int64) []int64 {
-	return Int64Slice(Unique(slice))
+func UniqueUIntSlice(arr []uint) []uint {
+	occurred := map[uint]struct{}{}
+	var result []uint
+	for _, value := range arr {
+		// check if already the mapped
+		// variable is set to true or not
+		if _, ok := occurred[value]; !ok {
+			occurred[value] = struct{}{}
+			// Append to result slice.
+			result = append(result, value)
+		}
+	}
+	return result
 }
 
-func UniqueStringSlice(slice []string) []string {
-	return StringSlice(Unique(slice))
+func UniqueInt64Slice(arr []int64) []int64 {
+	occurred := map[int64]struct{}{}
+	var result []int64
+	for _, value := range arr {
+		// check if already the mapped
+		// variable is set to true or not
+		if _, ok := occurred[value]; !ok {
+			occurred[value] = struct{}{}
+			// Append to result slice.
+			result = append(result, value)
+		}
+	}
+	return result
+}
+
+func UniqueStringSlice(arr []string) []string {
+	occurred := map[string]struct{}{}
+	var result []string
+	for _, value := range arr {
+		// check if already the mapped
+		// variable is set to true or not
+		if _, ok := occurred[value]; !ok {
+			occurred[value] = struct{}{}
+			// Append to result slice.
+			result = append(result, value)
+		}
+	}
+	return result
 }
 
 //Contain check if the value is in the iterable type or not
