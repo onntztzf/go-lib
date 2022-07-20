@@ -5,6 +5,7 @@ import (
 	"encoding/gob"
 	"encoding/json"
 	"fmt"
+	jsoniter "github.com/json-iterator/go"
 	"reflect"
 	"regexp"
 	"strconv"
@@ -70,18 +71,17 @@ func ToString(value interface{}) string {
 
 // ToJson convert value to a valid json string
 func ToJson(value interface{}) (string, error) {
-	res, err := json.Marshal(value)
+	res, err := jsoniter.MarshalToString(value)
 	if err != nil {
 		return "", err
 	}
-	return string(res), nil
+	return res, nil
 }
 
 // ToFloat64 convert value to a float64, if input is not a float return 0.0 and error
 func ToFloat64(value interface{}) (float64, error) {
 	v := reflect.ValueOf(value)
 	res := 0.0
-	err := fmt.Errorf("ToInt: unvalid interface type %T", value)
 	switch value.(type) {
 	case int, int8, int16, int32, int64:
 		res = float64(v.Int())
@@ -93,12 +93,13 @@ func ToFloat64(value interface{}) (float64, error) {
 		res = v.Float()
 		return res, nil
 	case string:
-		res, err = strconv.ParseFloat(v.String(), 64)
+		res, err := strconv.ParseFloat(v.String(), 64)
 		if err != nil {
 			res = 0.0
 		}
 		return res, err
 	default:
+		err := fmt.Errorf("ToInt: unvalid interface type %T", value)
 		return res, err
 	}
 }
@@ -107,7 +108,6 @@ func ToFloat64(value interface{}) (float64, error) {
 func ToInt64(value interface{}) (int64, error) {
 	v := reflect.ValueOf(value)
 	var res int64
-	err := fmt.Errorf("ToInt: invalid interface type %T", value)
 	switch value.(type) {
 	case int, int8, int16, int32, int64:
 		res = v.Int()
@@ -119,12 +119,13 @@ func ToInt64(value interface{}) (int64, error) {
 		res = int64(v.Float())
 		return res, nil
 	case string:
-		res, err = strconv.ParseInt(v.String(), 0, 64)
+		res, err := strconv.ParseInt(v.String(), 0, 64)
 		if err != nil {
 			res = 0
 		}
 		return res, err
 	default:
+		err := fmt.Errorf("ToInt: invalid interface type %T", value)
 		return res, err
 	}
 }
@@ -142,15 +143,17 @@ func StructToMap(value interface{}) (map[string]interface{}, error) {
 	}
 	res := make(map[string]interface{})
 	fieldNum := t.NumField()
-	pattern := `^[A-Z]`
-	regex := regexp.MustCompile(pattern)
 	for i := 0; i < fieldNum; i++ {
 		name := t.Field(i).Name
-		tag := t.Field(i).Tag.Get("json")
-		if regex.MatchString(name) && tag != "" {
-			//res[name] = v.Field(i).Interface()
-			res[tag] = v.Field(i).Interface()
+		if result, err := regexp.MatchString("^[A-Z]", name); err != nil && result == false {
+			continue
 		}
+		tag := t.Field(i).Tag.Get("json")
+		if len(tag) == 0 {
+			res[name] = v.Field(i).Interface()
+			continue
+		}
+		res[tag] = v.Field(i).Interface()
 	}
 	return res, nil
 }
