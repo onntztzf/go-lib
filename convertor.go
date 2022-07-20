@@ -145,7 +145,8 @@ func StructToMap(value interface{}) (map[string]interface{}, error) {
 	fieldNum := t.NumField()
 	for i := 0; i < fieldNum; i++ {
 		name := t.Field(i).Name
-		if result, err := regexp.MatchString("^[A-Z]", name); err != nil && result == false {
+		result, err := regexp.MatchString("^[A-Z]", name)
+		if  err != nil || result == false {
 			continue
 		}
 		tag := t.Field(i).Tag.Get("json")
