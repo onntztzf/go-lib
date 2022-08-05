@@ -1,12 +1,4 @@
-/**
- * @brief Coder-DECoder 编码解码
- * @file codec
- * @author zhangpeng
- * @version 1.0
- * @date
- */
-
-package box_lib
+package codec
 
 import (
 	"encoding/base64"

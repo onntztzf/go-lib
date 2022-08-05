@@ -1,4 +1,4 @@
-package box_lib
+package path
 
 import "os"
 

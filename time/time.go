@@ -6,12 +6,11 @@
  * @date
  */
 
-package box_lib
+package time
 
 import "time"
 
-// GetBeginTimeAndEndTime
-// 获取 00:00:00 和 23:59:59 的时间戳
+//GetBeginTimeAndEndTime 获取 00:00:00 和 23:59:59 的时间戳
 func GetBeginTimeAndEndTime(t time.Time, location *time.Location) (int64, int64) {
 	date := t.Format("2006/01/02")
 	if len(date) == 0 {

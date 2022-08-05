@@ -1,4 +1,4 @@
-package box_lib
+package convertor
 
 import (
 	"bytes"
@@ -69,15 +69,6 @@ func ToString(value interface{}) string {
 	}
 }
 
-// ToJson convert value to a valid json string
-func ToJson(value interface{}) (string, error) {
-	res, err := jsoniter.MarshalToString(value)
-	if err != nil {
-		return "", err
-	}
-	return res, nil
-}
-
 // ToFloat64 convert value to a float64, if input is not a float return 0.0 and error
 func ToFloat64(value interface{}) (float64, error) {
 	v := reflect.ValueOf(value)
@@ -130,6 +121,15 @@ func ToInt64(value interface{}) (int64, error) {
 	}
 }
 
+// ToJson convert value to a valid json string
+func ToJson(value interface{}) (string, error) {
+	res, err := jsoniter.MarshalToString(value)
+	if err != nil {
+		return "", err
+	}
+	return res, nil
+}
+
 // StructToMap convert struct to map, only convert exported struct field
 // map key is specified same as struct field tag `json` value
 func StructToMap(value interface{}) (map[string]interface{}, error) {
@@ -146,7 +146,7 @@ func StructToMap(value interface{}) (map[string]interface{}, error) {
 	for i := 0; i < fieldNum; i++ {
 		name := t.Field(i).Name
 		result, err := regexp.MatchString("^[A-Z]", name)
-		if  err != nil || result == false {
+		if err != nil || result == false {
 			continue
 		}
 		tag := t.Field(i).Tag.Get("json")
