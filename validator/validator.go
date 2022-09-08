@@ -35,10 +35,11 @@ func Init() {
 //	return strings.Join(errsMsgs, ",")
 //}
 
-func TranslateValidatorError(err error) string {
+func TranslateValidatorErrorMsg(err error) string {
 	if validationErrors, ok := err.(validator.ValidationErrors); ok {
-		var errsMsgs []string
-		for _, v := range validationErrors.Translate(trans) {
+		result := validationErrors.Translate(trans)
+		errsMsgs := make([]string, 0, len(result))
+		for _, v := range result {
 			errsMsgs = append(errsMsgs, v)
 		}
 		return strings.Join(errsMsgs, ",")
