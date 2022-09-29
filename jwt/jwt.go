@@ -8,10 +8,10 @@ import (
 )
 
 const (
-	GenerateTokenFailErrorCode = 201
-	ParseTokenFailErrorCode    = 202
-	InvalidTokenErrorCode      = 203
-	ExpiredTokenErrorCode      = 204
+	GenerateTokenFailErrorCode = 101
+	ParseTokenFailErrorCode    = 102
+	InvalidTokenErrorCode      = 103
+	ExpiredTokenErrorCode      = 104
 )
 
 var GenerateTokenFailError = e.NewError(GenerateTokenFailErrorCode, "生成 token 失败")
