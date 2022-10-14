@@ -1,31 +1,16 @@
-/**
- * @brief
- * @file string
- * @author zhangpeng
- * @version 1.0
- * @date
- */
-
 package string
 
 import (
+	"github.com/pkg/errors"
 	"regexp"
-	"strings"
 )
 
-func FirstLower(s string) string {
-	if len(s) == 0 {
-		return ""
-	}
-	return strings.ToLower(s[:1]) + s[1:]
-}
-
-func FirstUpper(s string) string {
-	if len(s) == 0 {
-		return ""
-	}
-	return strings.ToUpper(s[:1]) + s[1:]
-}
+var (
+	// ErrInvalidStartPosition is an error that indicates the start position is invalid.
+	ErrInvalidStartPosition = errors.New("start position is invalid")
+	// ErrInvalidStopPosition is an error that indicates the stop position is invalid.
+	ErrInvalidStopPosition = errors.New("stop position is invalid")
+)
 
 func Match(pattern string, s string) (bool, error) {
 	if len(pattern) == 0 && len(s) == 0 {
@@ -35,47 +20,55 @@ func Match(pattern string, s string) (bool, error) {
 	return match, err
 }
 
-func Camel2Snake(s string) string {
-	data := make([]byte, 0, len(s)*2)
-	j := false
-	num := len(s)
-	for i := 0; i < num; i++ {
-		d := s[i]
-		// or通过ASCII码进行大小写的转化
-		// 65-90（A-Z），97-122（a-z）
-		//判断如果字母为大写的A-Z就在前面拼接一个_
-		if i > 0 && d >= 'A' && d <= 'Z' && j {
-			data = append(data, '_')
+// Contains checks if str is in list.
+func Contains(list []string, str string) bool {
+	for _, each := range list {
+		if each == str {
+			return true
 		}
-		if d != '_' {
-			j = true
-		}
-		data = append(data, d)
 	}
-	//ToLower把大写字母统一转小写
-	return strings.ToLower(string(data[:]))
+	return false
 }
 
-func Snake2Camel(s string) string {
-	data := make([]byte, 0, len(s))
-	j := false
-	k := false
-	num := len(s) - 1
-	for i := 0; i <= num; i++ {
-		d := s[i]
-		if k == false && d >= 'A' && d <= 'Z' {
-			k = true
+// Filter filters chars from s with given filter function.
+func Filter(s string, filter func(r rune) bool) string {
+	var n int
+	chars := []rune(s)
+	for i, x := range chars {
+		if n < i {
+			chars[n] = x
 		}
-		if d >= 'a' && d <= 'z' && (j || k == false) {
-			d = d - 32
-			j = false
-			k = true
+		if !filter(x) {
+			n++
 		}
-		if k && d == '_' && num > i && s[i+1] >= 'a' && s[i+1] <= 'z' {
-			j = true
-			continue
-		}
-		data = append(data, d)
 	}
-	return string(data[:])
+	return string(chars[:n])
+}
+
+// Remove removes given strs from strings.
+func Remove(strings []string, strs ...string) []string {
+	out := append([]string(nil), strings...)
+	for _, str := range strs {
+		var n int
+		for _, v := range out {
+			if v != str {
+				out[n] = v
+				n++
+			}
+		}
+		out = out[:n]
+	}
+	return out
+}
+
+func Substr(str string, start, stop int) (string, error) {
+	rs := []rune(str)
+	length := len(rs)
+	if start < 0 || start > length {
+		return "", ErrInvalidStartPosition
+	}
+	if stop < 0 || stop > length {
+		return "", ErrInvalidStopPosition
+	}
+	return string(rs[start:stop]), nil
 }
