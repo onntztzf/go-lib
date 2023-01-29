@@ -1,6 +1,9 @@
 package string
 
-import "strings"
+import (
+	"strings"
+	"unsafe"
+)
 
 func FirstLower(s string) string {
 	if len(s) == 0 {
@@ -59,4 +62,17 @@ func Snake2Camel(s string) string {
 		data = append(data, d)
 	}
 	return string(data[:])
+}
+
+func StringToBytes(s string) []byte {
+	return *(*[]byte)(unsafe.Pointer(
+		&struct {
+			string
+			Cap int
+		}{s, len(s)},
+	))
+}
+
+func BytesToString(b []byte) string {
+	return *(*string)(unsafe.Pointer(&b))
 }

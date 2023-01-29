@@ -21,21 +21,21 @@ var ExpiredTokenError = e.NewError(ExpiredTokenErrorCode, "token 不在有效期
 
 var key = []byte("box-key")
 
-type boxClaims struct {
+type claims struct {
 	UserID int64 `json:"userID"`
 	jwt.StandardClaims
 }
 
-func ParseToken(token string) (*boxClaims, error) {
-	tokenClaims, err := jwt.ParseWithClaims(token, &boxClaims{}, func(token *jwt.Token) (interface{}, error) {
+func ParseToken(token string) (*claims, error) {
+	tokenClaims, err := jwt.ParseWithClaims(token, &claims{}, func(token *jwt.Token) (interface{}, error) {
 		return key, nil
 	})
 	if err != nil {
 		return nil, errors.Wrapf(ParseTokenFailError, "parse token fail, err: %s, token: %s", err.Error(), token)
 	}
-	claims, ok := tokenClaims.Claims.(*boxClaims)
+	claims, ok := tokenClaims.Claims.(*claims)
 	if !ok {
-		return nil, errors.Wrapf(ParseTokenFailError, "convert to boxClaims fail, tokenClaims: %+v", tokenClaims)
+		return nil, errors.Wrapf(ParseTokenFailError, "convert to claims fail, tokenClaims: %+v", tokenClaims)
 	}
 	if tokenClaims.Valid {
 		return claims, nil
@@ -58,7 +58,7 @@ func ParseToken(token string) (*boxClaims, error) {
 }
 
 func GenerateToken(userID int64, expiresAt int64) (string, error) {
-	claims := boxClaims{
+	claims := claims{
 		UserID: userID,
 		StandardClaims: jwt.StandardClaims{
 			ExpiresAt: expiresAt,

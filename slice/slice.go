@@ -1,14 +1,11 @@
-/**
- * @brief
- * @file slice
- * @author zhangpeng
- * @version 1.0
- * @date
- */
-
 package slice
 
-func Unique(slice []interface{}) []interface{} {
+import (
+	"github.com/gh-zhangpeng/box-lib/compare"
+)
+
+//RemoveDuplicate Delete duplicate elements
+func RemoveDuplicate(slice []interface{}) []interface{} {
 	if len(slice) == 0 {
 		return []interface{}{}
 	}
@@ -24,9 +21,10 @@ func Unique(slice []interface{}) []interface{} {
 }
 
 //Contain check if the value is in the iterable type or not
+//You need to ensure that the target type is the same as the element type in slice
 func Contain(slice []interface{}, target interface{}) bool {
-	for i := range slice {
-		if slice[i] == target {
+	for _, v := range slice {
+		if compare.Compare(v, target) {
 			return true
 		}
 	}

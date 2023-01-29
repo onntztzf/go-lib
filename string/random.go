@@ -54,7 +54,6 @@ func RandId() string {
 	if err != nil {
 		return Randn(idLen)
 	}
-
 	return fmt.Sprintf("%x%x%x%x", b[0:2], b[2:4], b[4:6], b[6:8])
 }
 
@@ -73,7 +72,6 @@ func Randn(n int) string {
 		cache >>= letterIdxBits
 		remain--
 	}
-
 	return string(b)
 }
 

@@ -1,11 +1,3 @@
-/**
- * @brief
- * @file url
- * @author zhangpeng
- * @version 1.0
- * @date
- */
-
 package url
 
 import (
@@ -13,6 +5,7 @@ import (
 	"net/url"
 )
 
+//AppendParams Append parameters to the url
 func AppendParams(URL string, newParams map[string]interface{}) string {
 	u, err := url.Parse(URL)
 	if err != nil {

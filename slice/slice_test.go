@@ -16,6 +16,14 @@ func TestChunk(t *testing.T) {
 		want [][]interface{}
 	}{
 		// TODO: Add test cases.
+		{name: testing.CoverMode(), args: args{
+			slice: []interface{}{1, 2, 3, 4, 5},
+			size:  2,
+		}, want: [][]interface{}{{1, 2}, {3, 4}, {5}}},
+		{name: testing.CoverMode(), args: args{
+			slice: []interface{}{1, 2, 3, 4, 5},
+			size:  3,
+		}, want: [][]interface{}{{1, 2, 3}, {4, 5}}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
@@ -37,6 +45,14 @@ func TestContain(t *testing.T) {
 		want bool
 	}{
 		// TODO: Add test cases.
+		{name: testing.CoverMode(), args: args{
+			slice:  []interface{}{int(1), int64(2)},
+			target: int64(1),
+		}, want: false},
+		{name: testing.CoverMode(), args: args{
+			slice:  append([]interface{}{}, int64(1)),
+			target: int64(1),
+		}, want: true},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
