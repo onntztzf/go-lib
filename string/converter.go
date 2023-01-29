@@ -1,6 +1,7 @@
 package string
 
 import (
+	"strconv"
 	"strings"
 	"unsafe"
 )
@@ -25,9 +26,9 @@ func Camel2Snake(s string) string {
 	num := len(s)
 	for i := 0; i < num; i++ {
 		d := s[i]
-		// or通过ASCII码进行大小写的转化
-		// 65-90（A-Z），97-122（a-z）
-		//判断如果字母为大写的A-Z就在前面拼接一个_
+		// converts case to case through ASCII code
+		// 65-90 (A-Z), 97-122 (a-z)
+		// if the letter A-Z is capitalized, put an _ in front of it
 		if i > 0 && d >= 'A' && d <= 'Z' && j {
 			data = append(data, '_')
 		}
@@ -36,7 +37,7 @@ func Camel2Snake(s string) string {
 		}
 		data = append(data, d)
 	}
-	//ToLower把大写字母统一转小写
+	//convert all uppercase letters to lowercase letters
 	return strings.ToLower(string(data[:]))
 }
 
@@ -64,7 +65,7 @@ func Snake2Camel(s string) string {
 	return string(data[:])
 }
 
-func StringToBytes(s string) []byte {
+func ToBytes(s string) []byte {
 	return *(*[]byte)(unsafe.Pointer(
 		&struct {
 			string
@@ -73,6 +74,23 @@ func StringToBytes(s string) []byte {
 	))
 }
 
-func BytesToString(b []byte) string {
+// ToBool convert string to a boolean
+func ToBool(s string) (bool, error) {
+	return strconv.ParseBool(s)
+}
+
+// ToChar convert string to char slice
+func ToChar(s string) []string {
+	c := make([]string, 0)
+	if len(s) == 0 {
+		c = append(c, "")
+	}
+	for _, v := range s {
+		c = append(c, string(v))
+	}
+	return c
+}
+
+func FromBytes(b []byte) string {
 	return *(*string)(unsafe.Pointer(&b))
 }

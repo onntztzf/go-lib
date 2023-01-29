@@ -11,11 +11,6 @@ import (
 	"strconv"
 )
 
-// ToBool convert string to a boolean
-func ToBool(s string) (bool, error) {
-	return strconv.ParseBool(s)
-}
-
 // ToBytes convert interface to bytes
 func ToBytes(data interface{}) ([]byte, error) {
 	var buf bytes.Buffer
@@ -25,18 +20,6 @@ func ToBytes(data interface{}) ([]byte, error) {
 		return nil, err
 	}
 	return buf.Bytes(), nil
-}
-
-// ToChar convert string to char slice
-func ToChar(s string) []string {
-	c := make([]string, 0)
-	if len(s) == 0 {
-		c = append(c, "")
-	}
-	for _, v := range s {
-		c = append(c, string(v))
-	}
-	return c
 }
 
 // ToString convert value to string
