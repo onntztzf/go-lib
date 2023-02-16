@@ -1,3 +1,3 @@
-# box-lib
+# lib
 
-box-lib
+lib
