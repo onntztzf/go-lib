@@ -1,10 +1,10 @@
 package slice
 
 import (
-	"github.com/gh-zhangpeng/box-lib/compare"
+	"github.com/gh-zhangpeng/lib/compare"
 )
 
-//RemoveDuplicate Delete duplicate elements
+// RemoveDuplicate Delete duplicate elements
 func RemoveDuplicate(slice []interface{}) []interface{} {
 	if len(slice) == 0 {
 		return []interface{}{}
@@ -20,8 +20,8 @@ func RemoveDuplicate(slice []interface{}) []interface{} {
 	return out
 }
 
-//Contain check if the value is in the iterable type or not
-//You need to ensure that the target type is the same as the element type in slice
+// Contain check if the value is in the iterable type or not
+// You need to ensure that the target type is the same as the element type in slice
 func Contain(slice []interface{}, target interface{}) bool {
 	for _, v := range slice {
 		if compare.Compare(v, target) {
@@ -31,7 +31,7 @@ func Contain(slice []interface{}, target interface{}) bool {
 	return false
 }
 
-//Chunk creates a slice of elements splits into groups the length of `size`
+// Chunk creates a slice of elements splits into groups the length of `size`
 func Chunk(slice []interface{}, size int) [][]interface{} {
 	var out [][]interface{}
 	if len(slice) == 0 || size <= 0 {

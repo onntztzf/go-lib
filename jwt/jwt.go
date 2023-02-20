@@ -1,7 +1,7 @@
 package jwt
 
 import (
-	"github.com/gh-zhangpeng/box-lib/e"
+	"github.com/gh-zhangpeng/lib/e"
 	"github.com/golang-jwt/jwt"
 	"github.com/pkg/errors"
 	"time"

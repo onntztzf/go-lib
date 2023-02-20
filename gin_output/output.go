@@ -1,7 +1,7 @@
 package gin_output
 
 import (
-	"github.com/gh-zhangpeng/box-lib/e"
+	"github.com/gh-zhangpeng/lib/e"
 	"github.com/gin-gonic/gin"
 	"net/http"
 )
