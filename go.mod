@@ -1,4 +1,4 @@
-module github.com/gh-zhangpeng/box-lib
+module github.com/gh-zhangpeng/lib
 
 go 1.17
 
