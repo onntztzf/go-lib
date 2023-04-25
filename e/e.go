@@ -32,7 +32,7 @@ const (
 )
 
 var SystemError = NewError(SystemErrorCode, "系统错误")
-var InvalidParamError = NewError(InvalidParamErrorCode, "参数错误")
+var InvalidParam = NewError(InvalidParamErrorCode, "参数错误")
 
 var DatabaseInsertError = NewError(DatabaseInsertErrorCode, "添加记录失败")
 var DatabaseSelectError = NewError(DatabaseSelectErrorCode, "查询记录失败")
