@@ -1,6 +1,7 @@
 package validator
 
 import (
+	"reflect"
 	"strings"
 
 	"github.com/gin-gonic/gin/binding"
@@ -21,6 +22,17 @@ func Init() error {
 	uni = ut.New(zhTranslator, zhTranslator)
 	trans, _ = uni.GetTranslator("zh")
 	validate = binding.Validator.Engine().(*validator.Validate)
+	validate.RegisterTagNameFunc(func(fld reflect.StructField) string {
+		s := fld.Name
+		if f := fld.Tag.Get("form"); len(f) > 0 {
+			s = f
+		} else if j := fld.Tag.Get("json"); len(j) > 0 {
+			s = j
+		} else if u := fld.Tag.Get("uri"); len(u) > 0 {
+			s = u
+		}
+		return s
+	})
 	err := zhTranslations.RegisterDefaultTranslations(validate, trans)
 	if err != nil {
 		return err
