@@ -32,6 +32,6 @@ func Failure(ctx *gin.Context, err error) {
 	ctx.JSON(http.StatusOK, output{
 		Code: code,
 		Msg:  msg,
-		Data: stuct{}{},
+		Data: struct{}{},
 	})
 }
