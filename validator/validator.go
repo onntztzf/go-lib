@@ -28,7 +28,7 @@ func Init() error {
 	return nil
 }
 
-func TranslateValidatorErrorMsg(err error) string {
+func TranslateValidatorError(err error) string {
 	if validationErrors, ok := err.(validator.ValidationErrors); ok {
 		result := validationErrors.Translate(trans)
 		errsMsgs := make([]string, 0, len(result))
