@@ -31,9 +31,9 @@ const (
 	DatabaseUpdateErrorCode = 6
 )
 
-var SystemError = NewError(SystemErrorCode, "系统错误")
-var InvalidParam = NewError(InvalidParamErrorCode, "参数错误")
+var SystemError = NewError(SystemErrorCode, "system error")
+var InvalidParam = NewError(InvalidParamErrorCode, "invalid param")
 
-var DatabaseInsertError = NewError(DatabaseInsertErrorCode, "添加记录失败")
-var DatabaseSelectError = NewError(DatabaseSelectErrorCode, "查询记录失败")
-var DatabaseUpdateError = NewError(DatabaseUpdateErrorCode, "更新记录失败")
+var DatabaseInsertError = NewError(DatabaseInsertErrorCode, "failed to add record")
+var DatabaseSelectError = NewError(DatabaseSelectErrorCode, "failed to retrieve record")
+var DatabaseUpdateError = NewError(DatabaseUpdateErrorCode, "failed to update record")
