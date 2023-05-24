@@ -1,10 +1,11 @@
 package jwt
 
 import (
+	"time"
+
 	"github.com/gh-zhangpeng/lib/e"
 	"github.com/golang-jwt/jwt"
 	"github.com/pkg/errors"
-	"time"
 )
 
 const (
@@ -14,15 +15,15 @@ const (
 	ExpiredTokenErrorCode      = 104
 )
 
-var GenerateTokenFailError = e.NewError(GenerateTokenFailErrorCode, "生成 token 失败")
-var ParseTokenFailError = e.NewError(ParseTokenFailErrorCode, "解析 token 失败")
-var InvalidTokenError = e.NewError(InvalidTokenErrorCode, "token 无效")
-var ExpiredTokenError = e.NewError(ExpiredTokenErrorCode, "token 不在有效期内")
+var GenerateTokenFailError = e.NewError(GenerateTokenFailErrorCode, "generate token fail")
+var ParseTokenFailError = e.NewError(ParseTokenFailErrorCode, "parse token fail")
+var InvalidTokenError = e.NewError(InvalidTokenErrorCode, "invalid token")
+var ExpiredTokenError = e.NewError(ExpiredTokenErrorCode, "expired token")
 
 var key = []byte("box-key")
 
 type claims struct {
-	UserID int64 `json:"userID"`
+	UserID uint64 `json:"userID"`
 	jwt.StandardClaims
 }
 
@@ -31,11 +32,11 @@ func ParseToken(token string) (*claims, error) {
 		return key, nil
 	})
 	if err != nil {
-		return nil, errors.Wrapf(ParseTokenFailError, "parse token fail, err: %s, token: %s", err.Error(), token)
+		return nil, ParseTokenFailError
 	}
 	claims, ok := tokenClaims.Claims.(*claims)
 	if !ok {
-		return nil, errors.Wrapf(ParseTokenFailError, "convert to claims fail, tokenClaims: %+v", tokenClaims)
+		return nil, ParseTokenFailError
 	}
 	if tokenClaims.Valid {
 		return claims, nil
@@ -57,7 +58,7 @@ func ParseToken(token string) (*claims, error) {
 	}
 }
 
-func GenerateToken(userID int64, expiresAt int64) (string, error) {
+func GenerateToken(userID uint64, expiresAt int64) (string, error) {
 	claims := claims{
 		UserID: userID,
 		StandardClaims: jwt.StandardClaims{

@@ -10,7 +10,7 @@ func NewError(code int, msg string) Error {
 }
 
 func NewErrorWithMsg(msg string) Error {
-	return Error{Code: CustomErrorCode, Msg: msg}
+	return Error{Code: ErrCodeCustomError, Msg: msg}
 }
 
 func (err Error) Error() string {
@@ -23,17 +23,24 @@ func (err Error) ReplaceMsg(newValue string) Error {
 }
 
 const (
-	SystemErrorCode         = 1
-	CustomErrorCode         = 2
-	InvalidParamErrorCode   = 3
-	DatabaseInsertErrorCode = 4
-	DatabaseSelectErrorCode = 5
-	DatabaseUpdateErrorCode = 6
+	ErrCodeSystemError        = 1
+	ErrCodeCustomError        = 2
+	ErrCodeInvalidParam       = 3
+	ErrCodeDatabaseInsertFail = 4
+	ErrCodeDatabaseSelectFail = 5
+	ErrCodeDatabaseUpdateFail = 6
+	ErrCodeDatabaseDeleteFail = 7
+	ErrCodeDatabaseCommitFail = 8
+	ErrCodeNoData             = 9
 )
 
-var SystemError = NewError(SystemErrorCode, "system error")
-var InvalidParam = NewError(InvalidParamErrorCode, "invalid param")
+var SystemError = NewError(ErrCodeSystemError, "system error")
 
-var DatabaseInsertError = NewError(DatabaseInsertErrorCode, "failed to add record")
-var DatabaseSelectError = NewError(DatabaseSelectErrorCode, "failed to retrieve record")
-var DatabaseUpdateError = NewError(DatabaseUpdateErrorCode, "failed to update record")
+var ErrInvalidParam = NewError(ErrCodeInvalidParam, "invalid param")
+var ErrDatabaseInsertFail = NewError(ErrCodeDatabaseInsertFail, "failed to add record")
+var ErrDatabaseSelectFail = NewError(ErrCodeDatabaseSelectFail, "failed to retrieve record")
+var ErrDatabaseUpdateFail = NewError(ErrCodeDatabaseUpdateFail, "failed to update record")
+var ErrDatabaseDeleteFail = NewError(ErrCodeDatabaseDeleteFail, "failed to delete record")
+var ErrDatabaseCommitFail = NewError(ErrCodeDatabaseCommitFail, "failed to commit")
+
+var ErrNoData = NewError(ErrCodeNoData, "no data")
