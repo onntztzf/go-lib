@@ -1,4 +1,4 @@
-module github.com/gh-zhangpeng/lib
+module github.com/gh-zhangpeng/go-lib
 
 go 1.19
 
