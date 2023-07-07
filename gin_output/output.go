@@ -3,7 +3,7 @@ package gin_output
 import (
 	"net/http"
 
-	"github.com/gh-zhangpeng/go-lib/e"
+	"github.com/2hangpeng/go-lib/e"
 	"github.com/gin-gonic/gin"
 )
 

@@ -1,6 +1,6 @@
 package slice
 
-import "github.com/gh-zhangpeng/go-lib/compare"
+import "github.com/2hangpeng/go-lib/compare"
 
 // Contain check if the value is in the iterable type or not
 // You need to ensure that the target type is the same as the element type in slice

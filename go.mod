@@ -1,4 +1,4 @@
-module github.com/gh-zhangpeng/go-lib
+module github.com/2hangpeng/go-lib
 
 go 1.20
 
