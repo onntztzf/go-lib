@@ -24,8 +24,8 @@ func (err Error) ReplaceMsg(newValue string) Error {
 	return err
 }
 
-func (err Error) ReplaceMsgf(format string, value ...interface{}) Error {
-	err.Msg = fmt.Sprintf(format, value...)
+func (err Error) ReplaceMsgf(format string, args ...interface{}) Error {
+	err.Msg = fmt.Sprintf(format, args...)
 	return err
 }
 
