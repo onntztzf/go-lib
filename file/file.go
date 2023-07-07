@@ -3,7 +3,7 @@ package file
 import (
 	"os"
 
-	"github.com/gh-zhangpeng/lib/e"
+	"github.com/gh-zhangpeng/go-lib/e"
 	jsoniter "github.com/json-iterator/go"
 )
 

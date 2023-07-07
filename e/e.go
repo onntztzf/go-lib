@@ -1,5 +1,7 @@
 package e
 
+import "fmt"
+
 type Error struct {
 	Code int
 	Msg  string
@@ -22,6 +24,11 @@ func (err Error) ReplaceMsg(newValue string) Error {
 	return err
 }
 
+func (err Error) ReplaceMsgf(format string, value ...interface{}) Error {
+	err.Msg = fmt.Sprintf(format, value...)
+	return err
+}
+
 const (
 	ErrCodeSystemError        = 1
 	ErrCodeCustomError        = 2
@@ -31,16 +38,12 @@ const (
 	ErrCodeDatabaseUpdateFail = 6
 	ErrCodeDatabaseDeleteFail = 7
 	ErrCodeDatabaseCommitFail = 8
-	ErrCodeNoData             = 9
 )
 
 var SystemError = NewError(ErrCodeSystemError, "system error")
-
-var ErrInvalidParam = NewError(ErrCodeInvalidParam, "invalid param")
-var ErrDatabaseInsertFail = NewError(ErrCodeDatabaseInsertFail, "failed to add record")
-var ErrDatabaseSelectFail = NewError(ErrCodeDatabaseSelectFail, "failed to retrieve record")
-var ErrDatabaseUpdateFail = NewError(ErrCodeDatabaseUpdateFail, "failed to update record")
-var ErrDatabaseDeleteFail = NewError(ErrCodeDatabaseDeleteFail, "failed to delete record")
-var ErrDatabaseCommitFail = NewError(ErrCodeDatabaseCommitFail, "failed to commit")
-
-var ErrNoData = NewError(ErrCodeNoData, "no data")
+var InvalidParam = NewError(ErrCodeInvalidParam, "invalid param")
+var DatabaseInsertFail = NewError(ErrCodeDatabaseInsertFail, "failed to add")
+var DatabaseSelectFail = NewError(ErrCodeDatabaseSelectFail, "failed to select")
+var DatabaseUpdateFail = NewError(ErrCodeDatabaseUpdateFail, "failed to update")
+var DatabaseDeleteFail = NewError(ErrCodeDatabaseDeleteFail, "failed to delete")
+var DatabaseCommitFail = NewError(ErrCodeDatabaseCommitFail, "failed to commit")

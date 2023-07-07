@@ -1,9 +1,10 @@
 package gin_output
 
 import (
-	"github.com/gh-zhangpeng/lib/e"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/gh-zhangpeng/go-lib/e"
+	"github.com/gin-gonic/gin"
 )
 
 type output struct {
