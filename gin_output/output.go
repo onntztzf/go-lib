@@ -19,7 +19,7 @@ func Success(ctx *gin.Context, data interface{}) {
 	}
 	ctx.JSON(http.StatusOK, output{
 		Code: 0,
-		Msg:  "",
+		Msg:  "success",
 		Data: data,
 	})
 }

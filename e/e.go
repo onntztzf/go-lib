@@ -1,6 +1,8 @@
 package e
 
-import "fmt"
+import (
+	"fmt"
+)
 
 type Error struct {
 	Code int

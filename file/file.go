@@ -9,9 +9,9 @@ import (
 
 func LoadJSON(filePath string, target interface{}) error {
 	if content, err := os.ReadFile(filePath); err != nil {
-		return e.NewErrorWithMsg("read json file fail")
+		return e.SystemError.ReplaceMsg("read json file fail")
 	} else if err = jsoniter.Unmarshal(content, &target); err != nil {
-		return e.NewErrorWithMsg("unmarshal json file fail")
+		return e.SystemError.ReplaceMsg("unmarshal json file fail")
 	}
 	return nil
 }
