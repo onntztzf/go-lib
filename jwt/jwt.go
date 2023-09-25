@@ -3,7 +3,7 @@ package jwt
 import (
 	"time"
 
-	"github.com/gh-zhangpeng/lib/e"
+	"github.com/2hangpeng/lib/e"
 	"github.com/golang-jwt/jwt"
 	"github.com/pkg/errors"
 )

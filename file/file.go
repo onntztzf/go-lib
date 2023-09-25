@@ -4,7 +4,7 @@ import (
 	"gopkg.in/yaml.v3"
 	"os"
 
-	"github.com/gh-zhangpeng/lib/e"
+	"github.com/2hangpeng/lib/e"
 	jsoniter "github.com/json-iterator/go"
 )
 

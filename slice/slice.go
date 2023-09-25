@@ -1,7 +1,7 @@
 package slice
 
 import (
-	"github.com/gh-zhangpeng/lib/compare"
+	"github.com/2hangpeng/lib/compare"
 )
 
 // RemoveDuplicate removes duplicate elements from a slice.
