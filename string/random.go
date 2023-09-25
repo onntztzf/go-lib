@@ -42,12 +42,12 @@ func (ls *lockedSource) Seed(seed int64) {
 	ls.source.Seed(seed)
 }
 
-// Rand returns a random string.
+// Rand returns a random string of default length.
 func Rand() string {
 	return Randn(defaultRandLen)
 }
 
-// RandId returns a random id string.
+// RandId returns a random ID string.
 func RandId() string {
 	b := make([]byte, idLen)
 	_, err := crand.Read(b)
@@ -57,7 +57,7 @@ func RandId() string {
 	return fmt.Sprintf("%x%x%x%x", b[0:2], b[2:4], b[4:6], b[6:8])
 }
 
-// Randn returns a random string with length n.
+// Randn returns a random string with the specified length n.
 func Randn(n int) string {
 	b := make([]byte, n)
 	// A src.Int63() generates 63 random bits, enough for letterIdxMax characters!
@@ -75,7 +75,7 @@ func Randn(n int) string {
 	return string(b)
 }
 
-// Seed sets the seed to seed.
+// Seed sets the seed for the random number generator.
 func Seed(seed int64) {
 	src.Seed(seed)
 }

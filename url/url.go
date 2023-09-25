@@ -5,7 +5,7 @@ import (
 	"net/url"
 )
 
-//AppendParams Append parameters to the url
+// AppendParams appends parameters to the URL.
 func AppendParams(URL string, newParams map[string]interface{}) string {
 	u, err := url.Parse(URL)
 	if err != nil {

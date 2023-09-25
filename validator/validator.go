@@ -1,6 +1,7 @@
 package validator
 
 import (
+	"fmt"
 	"reflect"
 	"strings"
 
@@ -33,9 +34,8 @@ func Init() error {
 		}
 		return s
 	})
-	err := zhTranslations.RegisterDefaultTranslations(validate, trans)
-	if err != nil {
-		return err
+	if err := zhTranslations.RegisterDefaultTranslations(validate, trans); err != nil {
+		return fmt.Errorf("failed to register translations: %v", err)
 	}
 	return nil
 }

@@ -1,9 +1,7 @@
 package string
 
 import (
-	"strconv"
 	"strings"
-	"unsafe"
 )
 
 func FirstLower(s string) string {
@@ -63,34 +61,4 @@ func Snake2Camel(s string) string {
 		data = append(data, d)
 	}
 	return string(data[:])
-}
-
-func ToBytes(s string) []byte {
-	return *(*[]byte)(unsafe.Pointer(
-		&struct {
-			string
-			Cap int
-		}{s, len(s)},
-	))
-}
-
-// ToBool convert string to a boolean
-func ToBool(s string) (bool, error) {
-	return strconv.ParseBool(s)
-}
-
-// ToChar convert string to char slice
-func ToChar(s string) []string {
-	c := make([]string, 0)
-	if len(s) == 0 {
-		c = append(c, "")
-	}
-	for _, v := range s {
-		c = append(c, string(v))
-	}
-	return c
-}
-
-func FromBytes(b []byte) string {
-	return *(*string)(unsafe.Pointer(&b))
 }

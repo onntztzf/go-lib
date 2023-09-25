@@ -1,6 +1,7 @@
 package file
 
 import (
+	"gopkg.in/yaml.v3"
 	"os"
 
 	"github.com/gh-zhangpeng/lib/e"
@@ -9,9 +10,19 @@ import (
 
 func LoadJSON(filePath string, target interface{}) error {
 	if content, err := os.ReadFile(filePath); err != nil {
-		return e.NewErrorWithMsg("read json file fail")
+		return e.NewError(e.ErrCodeSystemError, "read file fail")
 	} else if err = jsoniter.Unmarshal(content, &target); err != nil {
-		return e.NewErrorWithMsg("unmarshal json file fail")
+		return e.NewError(e.ErrCodeSystemError, "unmarshal file fail")
+	}
+	return nil
+}
+
+// LoadYAML reads a YAML file and unmarshals it into the target interface.
+func LoadYAML(filePath string, target interface{}) error {
+	if content, err := os.ReadFile(filePath); err != nil {
+		return e.NewError(e.ErrCodeSystemError, "read file fail")
+	} else if err := yaml.Unmarshal(content, target); err != nil {
+		return e.NewError(e.ErrCodeSystemError, "unmarshal file fail")
 	}
 	return nil
 }

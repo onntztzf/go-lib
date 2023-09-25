@@ -4,24 +4,24 @@ import (
 	"github.com/gh-zhangpeng/lib/compare"
 )
 
-// RemoveDuplicate Delete duplicate elements
+// RemoveDuplicate removes duplicate elements from a slice.
 func RemoveDuplicate(slice []interface{}) []interface{} {
 	if len(slice) == 0 {
 		return []interface{}{}
 	}
 	out := make([]interface{}, 0, len(slice))
-	temp := make(map[interface{}]bool)
-	for i := range slice {
-		if !temp[slice[i]] {
-			temp[slice[i]] = true
-			out = append(out, slice[i])
+	temp := make(map[interface{}]struct{}) // Use struct{} as the value to save memory
+	for _, v := range slice {
+		if _, ok := temp[v]; !ok {
+			temp[v] = struct{}{}
+			out = append(out, v)
 		}
 	}
 	return out
 }
 
-// Contain check if the value is in the iterable type or not
-// You need to ensure that the target type is the same as the element type in slice
+// Contain checks if the slice contains the target element.
+// Make sure the element types in the slice and the target are the same.
 func Contain(slice []interface{}, target interface{}) bool {
 	for _, v := range slice {
 		if compare.Compare(v, target) {
@@ -31,7 +31,7 @@ func Contain(slice []interface{}, target interface{}) bool {
 	return false
 }
 
-// Chunk creates a slice of elements splits into groups the length of `size`
+// Chunk divides a slice into multiple sub-slices of the specified size.
 func Chunk(slice []interface{}, size int) [][]interface{} {
 	var out [][]interface{}
 	if len(slice) == 0 || size <= 0 {
@@ -40,22 +40,19 @@ func Chunk(slice []interface{}, size int) [][]interface{} {
 	length := len(slice)
 	if size == 1 || size >= length {
 		for _, v := range slice {
-			var tmp []interface{}
-			tmp = append(tmp, v)
-			out = append(out, tmp)
+			out = append(out, []interface{}{v})
 		}
 		return out
 	}
-	// divide slice equally
-	divideNum := length/size + 1
+	// Divide the slice evenly
+	divideNum := (length + size - 1) / size // Calculate the number of divisions, rounding up
 	for i := 0; i < divideNum; i++ {
-		if i == divideNum-1 {
-			if len(slice[i*size:]) > 0 {
-				out = append(out, slice[i*size:])
-			}
-		} else {
-			out = append(out, slice[i*size:(i+1)*size])
+		start := i * size
+		end := (i + 1) * size
+		if end > length {
+			end = length
 		}
+		out = append(out, slice[start:end])
 	}
 	return out
 }
