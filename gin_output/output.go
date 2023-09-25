@@ -1,9 +1,10 @@
 package gin_output
 
 import (
-	"github.com/gh-zhangpeng/lib/e"
-	"github.com/gin-gonic/gin"
 	"net/http"
+
+	"github.com/2hangpeng/go-lib/e"
+	"github.com/gin-gonic/gin"
 )
 
 type Output struct {
@@ -19,7 +20,7 @@ func Success(ctx *gin.Context, data interface{}) {
 	}
 	ctx.JSON(http.StatusOK, Output{
 		Code: 0,
-		Msg:  "",
+		Msg:  "success",
 		Data: data,
 	})
 }
